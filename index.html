@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>PokeDex</title>
+    <link
+      rel="shortcut icon"
+      href="/img/pokemon-1536849_640.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="CSS/pokecard.css"
+    />
+    <link
+      rel="stylesheet"
+      href="CSS/infocard.css"
+    />
+  </head>
+  <body onload="loadFunc()">
+    <header>
+      <div class="headerImg">
+        <img
+          src="img/pokemon-1536849_640.png"
+          alt=""
+        />
+        <h1><a href="index.html">PokeDex</a></h1>
+      </div>
+
+      <div>
+        <input
+          onkeyup="filterAndShowNames()"
+          type="search"
+          id="search"
+          placeholder="Search Pokemon"
+          minlength="3"
+        />
+      </div>
+    </header>
+    <main>
+      <div class="spinnerDiv">
+        <div
+          id="spinner"
+          class="loadingSpinner"
+        ></div>
+      </div>
+      <div
+        id="infoScreen"
+        class="infoScreen d-none"
+        onclick="closeInfoScreen()"
+      ></div>
+      <div
+        class="content"
+        id="content"
+      ></div>
+      <div
+        id="mainButton"
+        class="load-more"
+      ></div>
+    </main>
+    <script src="JS/template.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

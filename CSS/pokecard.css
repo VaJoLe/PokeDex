@@ -1,0 +1,153 @@
+.pokeCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    color: rgb(227, 234, 238);
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.pokeCardHead {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 20px;
+    height: 50px;
+    width: 250px;
+    background-color: rgb(11, 64, 82);
+    border-radius: 16px 16px 0 0;
+    position: relative;
+}
+
+.number {
+    position: absolute;
+    left: 15px;
+}
+
+.pokeCardBody {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.pokeCardBody img {
+    max-width: 220px;
+    max-height: 220px;
+    filter: drop-shadow(5px 10px 5px #000000);
+    transition: 0.2s;
+
+}
+
+.pokeCardBody img:hover {
+    transition: 0.2s;
+    filter: drop-shadow(10px 15px 5px #000000);
+}
+
+.pokeCardFoot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 250px;
+    background-color: rgb(11, 64, 82);
+    border-radius: 0 0 16px 16px;
+
+}
+
+.svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+    gap: 10px;
+
+}
+
+.typeBG {
+    padding: 8px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.svg-container img {
+    width: 25px;
+}
+
+.bg_bug {
+    background-color: greenyellow;
+}
+
+.bg_dark {
+    background-color: darkslategray;
+}
+
+.bg_dragon {
+    background-color: darkred;
+}
+
+.bg_electric {
+    background-color: yellow;
+}
+
+.bg_fairy {
+    background-color: pink;
+}
+
+.bg_fighting {
+    background-color: rgb(189, 189, 189);
+}
+
+.bg_fire {
+    background-color: rgb(249, 42, 42);
+}
+
+.bg_flying {
+    background-color: rgb(255, 237, 204);
+}
+
+.bg_ghost {
+    background-color: whitesmoke;
+}
+
+.bg_grass {
+    background-color: rgb(22, 200, 22);
+}
+
+.bg_ground {
+    background-color: gray;
+}
+
+.bg_ice {
+    background-color: rgb(70, 70, 255);
+}
+
+.bg_normal {
+    background-color: rgb(255, 217, 147);
+}
+
+.bg_poison {
+    background-color: rgb(197, 80, 255);
+}
+
+.bg_psychic {
+    background-color: sandybrown;
+}
+
+.bg_rock {
+    background-color: rgb(137, 125, 125);
+}
+
+.bg_steel {
+    background-color: steelblue;
+}
+
+.bg_water {
+    background-color: rgb(83, 83, 255);
+}
