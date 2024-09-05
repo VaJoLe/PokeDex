@@ -79,7 +79,7 @@
 
 .infoText {
     width: 400px;
-    height: 150px;
+    min-height: 150px;
     background-color: rgb(11, 64, 82);
     font-size: 15px;
     border-radius: 0 0 16px 16px;

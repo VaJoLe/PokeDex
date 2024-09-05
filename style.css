@@ -13,7 +13,7 @@ body {
     max-width: 1440px;
     width: 100%;
     background-color: rgb(4, 24, 33);
-    background-image: url(/img/pokemonBackground.png);
+    background-image: url(img/pokemonBackground.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
