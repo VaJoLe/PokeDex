@@ -48,24 +48,24 @@ function generateMainInfo(pokemon) {
   return /*html*/ `
     <div>
       <div class="infoRow">
-        <span class="key"><b>Name:</b></span> 
-        <span class="value">${pokemon.name}</span>
+        <span class="statName"><b>Name:</b></span> 
+        <span class="statValue">${pokemon.name}</span>
       </div>
       <div class="infoRow">
-        <span class="key"><b>EP:</b></span>
-        <span class="value">${pokemon.base_experience}</span>
+        <span class="statName"><b>EP:</b></span>
+        <span class="statValue">${pokemon.base_experience}</span>
       </div>
       <div class="infoRow">
-        <span class="key"><b>Gewicht:</b></span>
-        <span class="value">${mathWeight(pokemon.weight)}kg</span>
+        <span class="statName"><b>Gewicht:</b></span>
+        <span class="statValue">${mathWeight(pokemon.weight)}kg</span>
       </div>
       <div class="infoRow">
-        <span class="key"><b>Größe:</b></span>
-        <span class="value">${mathHeight(pokemon.height)}m</span>
+        <span class="statName"><b>Größe:</b></span>
+        <span class="statValue">${mathHeight(pokemon.height)}m</span>
       </div>
       <div class="infoRow">
-        <span class="key"><b>Fähigkeiten:</b></span> 
-        <span class="value">${pokemon.abilities
+        <span class="statName"><b>Fähigkeiten:</b></span> 
+        <span class="statValue">${pokemon.abilities
           .map(ability => ability.ability.name)
           .join(", ")}</span>
       </div>
