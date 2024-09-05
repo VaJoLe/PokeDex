@@ -181,7 +181,7 @@ function renderEvolutions(evolutions) {
 }
 
 function srcImg(types) {
-  const basePath = "svg/";
+  const basePath = "img/";
 
   function getSvgPath(type) {
     const className = `bg_${type}`;
