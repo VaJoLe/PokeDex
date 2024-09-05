@@ -1,7 +1,7 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=24&offset=";
 let pokemonList = [];
 let currentNames = [];
-let offset = 0; // Start-Offset bei 0 (die ersten 24 Pokémon)
+let offset = 0;
 
 async function loadFunc() {
   showSpinner();
@@ -29,13 +29,12 @@ async function getNameData() {
   const response = await fetch(BASE_URL + offset + ".json");
   const data = await response.json();
 
-  // Pokémon-Daten laden
   for (let i = 0; i < data.results.length; i++) {
     const pokemon = data.results[i];
-    await getInfoData(pokemon); // Detaildaten für jedes Pokémon laden
-    pokemonList.push(pokemonData); // Pokémon zur Liste hinzufügen
+    await getInfoData(pokemon);
+    pokemonList.push(pokemonData);
   }
-  currentNames = pokemonList; // Aktualisiere die aktuelle Pokémon-Liste
+  currentNames = pokemonList;
 }
 
 async function getInfoData(infoUrl) {
@@ -45,21 +44,20 @@ async function getInfoData(infoUrl) {
 
 function filterAndShowNames() {
   const searchInput = document.getElementById("search");
-  const filterWord = searchInput.value.toLowerCase(); // Eingabe in Kleinbuchstaben umwandeln
-  // Wenn das Suchfeld leer ist (nach Klick auf "X"), zeige alle Pokémon an
+  const filterWord = searchInput.value.toLowerCase();
   if (filterWord === "") {
-    currentNames = pokemonList; // Alle Pokémon anzeigen
+    currentNames = pokemonList;
   } else if (filterWord.length >= 3) {
     currentNames = pokemonList.filter(pokemon =>
       pokemon.name.startsWith(filterWord)
-    ); // Suche nach Pokémon, deren Namen mit dem eingegebenen Wort beginnen
+    );
   } else {
-    currentNames = pokemonList; // Weniger als 3 Zeichen, alle anzeigen
+    currentNames = pokemonList;
   }
 
   document.getElementById("mainButton").classList.add("d-none");
 
-  render(); // Nach jedem Filtervorgang neu rendern
+  render();
 }
 
 document.getElementById("search").addEventListener("input", filterAndShowNames);
@@ -120,43 +118,36 @@ function statsInfo(event, index) {
 }
 
 async function evoInfo(event, index) {
-  event.stopPropagation(); // Verhindert, dass das Haupt-Event ausgelöst wird
+  event.stopPropagation();
   const pokemon = currentNames[index];
 
-  // Spezies-URL, um an die Evolutionskette zu kommen
   const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}/`;
   const speciesResponse = await fetch(speciesUrl);
   const speciesData = await speciesResponse.json();
 
-  // Hole die URL zur Evolutionskette
   const evolutionChainUrl = speciesData.evolution_chain.url;
   const evolutionResponse = await fetch(evolutionChainUrl);
   const evolutionData = await evolutionResponse.json();
 
-  // Finde alle Evolutionsstufen
   const evolutions = await getEvolutions(evolutionData.chain);
 
-  // HTML generieren und in das 'info'-Feld einfügen
   renderEvolutions(evolutions);
 }
 
-// Hilfsfunktion: Durchläuft die Evolutionskette und holt die Daten für jedes Pokémon
 async function getEvolutions(evolutionChain) {
   const evolutions = [];
   let currentEvolution = evolutionChain;
-  // Füge die erste Evolutionsstufe hinzu
+
   evolutions.push(await getPokemonData(currentEvolution.species.name));
 
-  // Füge weitere Evolutionsstufen hinzu, wenn sie existieren
   while (currentEvolution.evolves_to.length > 0) {
-    currentEvolution = currentEvolution.evolves_to[0]; // Nächste Evolution
+    currentEvolution = currentEvolution.evolves_to[0];
     evolutions.push(await getPokemonData(currentEvolution.species.name));
   }
 
   return evolutions;
 }
 
-// Hilfsfunktion, um Pokémon-Daten basierend auf dem Namen zu laden
 async function getPokemonData(pokemonName) {
   const response = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
@@ -209,14 +200,12 @@ async function loadMorePokemon() {
   render();
 }
 
-// Funktion zum Anzeigen des Spinners
 function showSpinner() {
   document.getElementById("spinner").style.display = "block";
-  document.body.classList.add("loading"); // Deaktiviere Scrollen und Klicks
+  document.body.classList.add("loading");
 }
 
-// Funktion zum Verbergen des Spinners
 function hideSpinner() {
   document.getElementById("spinner").style.display = "none";
-  document.body.classList.remove("loading"); // Aktiviere Scrollen und Klicks
+  document.body.classList.remove("loading");
 }

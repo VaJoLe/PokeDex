@@ -15,13 +15,9 @@ body {
     background-color: rgb(4, 24, 33);
     background-image: url(/img/pokemonBackground.png);
     background-size: cover;
-    /* Das Bild deckt den gesamten Bereich ab */
     background-position: center;
-    /* Bild wird zentriert */
     background-repeat: no-repeat;
-    /* Bild wird nicht wiederholt */
     background-attachment: fixed;
-    /* Bild scrollt nicht mit */
 }
 
 header {
@@ -107,11 +103,9 @@ input::placeholder {
 
 .spinnerDiv {
     position: fixed;
-    /* Stelle sicher, dass der Spinner relativ zum Viewport positioniert wird */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* Zentriere ihn horizontal und vertikal */
     z-index: 1000;
 }
 
@@ -123,7 +117,6 @@ input::placeholder {
     border: 8px solid black;
     animation: spin 1s linear infinite;
     z-index: 1000;
-    /* Sicherstellen, dass er über allen anderen Inhalten liegt */
 }
 
 .loadingSpinner::before {
@@ -159,7 +152,6 @@ input::placeholder {
     }
 }
 
-/* Wenn der Spinner aktiv ist, soll die Seite nicht scrollbar und interagierbar sein */
 body.loading {
     overflow: hidden;
     pointer-events: none;
