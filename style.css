@@ -154,7 +154,7 @@ input::placeholder {
     }
 }
 
-body.loading {
+.loading {
     overflow: hidden;
     pointer-events: none;
 }
