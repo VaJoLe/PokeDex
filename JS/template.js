@@ -20,8 +20,12 @@ function generatePokeCard(index) {
         `;
 }
 
-function generateOpenInfoScreen(pokemon, index) {
+function generateOpenInfoScreen(index) {
+  const pokemon = currentNames[index];
   return /*html*/ `
+    <div class="next" onclick="nextPokemon(event, ${index})">
+      <img src="img/vorwärts.jpg" alt="vorwärts">
+    </div>
     <div class="infos">
       <div class="infoHead">
         <span class="number"><b>#${pokemon.id}</b></span>
@@ -30,17 +34,20 @@ function generateOpenInfoScreen(pokemon, index) {
       <div class="infoImg bg_${pokemon.types[0].type.name}"img>
         <img src="${pokemon.sprites.other.dream_world.front_default}" alt="">
       </div>
-        <div class="infoTypes"type>
-          ${srcImg(pokemon.types.map(type => type.type.name))}
-        </div>
-        <div class="infoButtons"buttons>
-          <button onclick="mainInfo(event, ${index})" class="button" id="button mainButton">Main</button>
-          <button onclick="statsInfo(event, ${index})" class="button" id="button">Stats</button>
-          <button onclick="evoInfo(event, ${index})" class="button" id="button">Evolution</button>
-        </div>
-        <div class="infoText" id="info">
-          </div>
-        </div>
+      <div class="infoTypes"type>
+        ${srcImg(pokemon.types.map(type => type.type.name))}
+      </div>
+      <div class="infoButtons"buttons>
+        <button onclick="mainInfo(event, ${index})" class="button" id="button mainButton">Main</button>
+        <button onclick="statsInfo(event, ${index})" class="button" id="button">Stats</button>
+        <button onclick="evoInfo(event, ${index})" class="button" id="button">Evolution</button>
+      </div>
+      <div class="infoText" id="info">
+      </div>
+    </div>
+    <div class="prev" onclick="prevPokemon(event, ${index})">
+      <img src="img/zurück.jpg" alt="zurück">
+    </div>
         `;
 }
 

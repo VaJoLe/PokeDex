@@ -3,6 +3,8 @@ let pokemonList = [];
 let currentNames = [];
 let offset = 0;
 
+document.getElementById("search").addEventListener("input", filterAndShowNames);
+
 async function loadFunc() {
   showSpinner();
   await getNameData();
@@ -16,11 +18,10 @@ async function render() {
   content.innerHTML = "";
 
   for (let i = 0; i < currentNames.length; i++) {
-    const pokemon = currentNames[i];
     content.innerHTML += generatePokeCard(i);
   }
 
-  document.getElementById("mainButton").innerHTML = ` 
+  document.getElementById("mainButton").innerHTML = /*html*/ ` 
   <button onclick="loadMorePokemon()">Load More Pokémon</button>
   `;
 }
@@ -31,7 +32,7 @@ async function getNameData() {
 
   for (let i = 0; i < data.results.length; i++) {
     const pokemon = data.results[i];
-    await getInfoData(pokemon);
+    const pokemonData = await getInfoData(pokemon);
     pokemonList.push(pokemonData);
   }
   currentNames = pokemonList;
@@ -39,7 +40,7 @@ async function getNameData() {
 
 async function getInfoData(infoUrl) {
   const nextResponse = await fetch(infoUrl.url);
-  pokemonData = await nextResponse.json();
+  return await nextResponse.json();
 }
 
 function filterAndShowNames() {
@@ -60,20 +61,36 @@ function filterAndShowNames() {
   render();
 }
 
-document.getElementById("search").addEventListener("input", filterAndShowNames);
-
 function openInfoScreen(index) {
-  const pokemon = currentNames[index];
-
   document.querySelector("body").classList.add("ovHidden");
   document.getElementById("infoScreen").classList.remove("d-none");
 
-  document.getElementById("infoScreen").innerHTML = generateOpenInfoScreen(
-    pokemon,
-    index
-  );
+  document.getElementById("infoScreen").innerHTML =
+    generateOpenInfoScreen(index);
 
   mainInfo(event, index);
+}
+
+function nextPokemon(event, index) {
+  event.stopPropagation();
+  index++;
+
+  if (index == currentNames.length) {
+    alert("Mehr Pokemon laden!");
+  } else {
+    openInfoScreen(index);
+  }
+}
+
+function prevPokemon(event, index) {
+  event.stopPropagation();
+
+  if (index == 0) {
+    alert("Keine Pokemon verfügbar!");
+  } else {
+    index--;
+    openInfoScreen(index);
+  }
 }
 
 function closeInfoScreen() {
@@ -119,19 +136,27 @@ function statsInfo(event, index) {
 
 async function evoInfo(event, index) {
   event.stopPropagation();
-  const pokemon = currentNames[index];
 
-  const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}/`;
-  const speciesResponse = await fetch(speciesUrl);
-  const speciesData = await speciesResponse.json();
+  const speciesData = await getSpeciesUrl(index);
 
-  const evolutionChainUrl = speciesData.evolution_chain.url;
-  const evolutionResponse = await fetch(evolutionChainUrl);
-  const evolutionData = await evolutionResponse.json();
+  const evolutionData = await getEvoChain(speciesData);
 
   const evolutions = await getEvolutions(evolutionData.chain);
 
   renderEvolutions(evolutions);
+}
+
+async function getSpeciesUrl(index) {
+  const pokemon = currentNames[index];
+  const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}/`;
+  const speciesResponse = await fetch(speciesUrl);
+  return await speciesResponse.json();
+}
+
+async function getEvoChain(speciesData) {
+  const evolutionChainUrl = speciesData.evolution_chain.url;
+  const evolutionResponse = await fetch(evolutionChainUrl);
+  return await evolutionResponse.json();
 }
 
 async function getEvolutions(evolutionChain) {
@@ -158,7 +183,7 @@ async function getPokemonData(pokemonName) {
 function renderEvolutions(evolutions) {
   let evoHtml = "";
   evolutions.forEach(evolution => {
-    evoHtml += `
+    evoHtml += /*html*/ `
         <div class="evolution-step">
           <img src="${evolution.sprites.other.dream_world.front_default}" alt="${evolution.name}">
           <p><b>${evolution.name}</b></p>
