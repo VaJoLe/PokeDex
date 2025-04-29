@@ -1,19 +1,18 @@
-function generatePokeCard(index) {
-  const pokemonData = currentNames[index];
+function generatePokeCard(pokemonData) {
   return /*html*/ `
-    <div class="pokeCard" onclick="openInfoScreen(${index})">
+    <div class="pokeCard" onclick="openInfoScreen(${pokemonData.id - 1})">
         <div class="pokeCardHead">
             <span class="number"><b>#${pokemonData.id}</b></span>
             <span><b>${pokemonData.name}</b></span>
         </div>
-        <div class="pokeCardBody bg_${pokemonData.types[0].type.name}">
+        <div class="pokeCardBody bg_${pokemonData.types[0]}">
             <img src="${
-              pokemonData.sprites.other.dream_world.front_default
+              pokemonData.image
             }" alt="">
         </div>
         <div class="pokeCardFoot">
             <div class="svg-container ">
-              ${srcImg(pokemonData.types.map(type => type.type.name))}
+              ${srcImg(pokemonData.types.map(type => type))}
             </div>
         </div>
     </div>
@@ -21,7 +20,7 @@ function generatePokeCard(index) {
 }
 
 function generateOpenInfoScreen(index) {
-  const pokemon = currentNames[index];
+  const pokemon = pokemonList[index];
   return /*html*/ `
     <div class="next" onclick="nextPokemon(event, ${index})">
       <img src="img/vorwärts.jpg" alt="vorwärts">
@@ -31,11 +30,11 @@ function generateOpenInfoScreen(index) {
         <span class="number"><b>#${pokemon.id}</b></span>
         <span><b>${pokemon.name}</b></span>
       </div>
-      <div class="infoImg bg_${pokemon.types[0].type.name}"img>
-        <img src="${pokemon.sprites.other.dream_world.front_default}" alt="">
+      <div class="infoImg bg_${pokemon.types[0]}"img>
+        <img src="${pokemon.image}" alt="">
       </div>
       <div class="infoTypes"type>
-        ${srcImg(pokemon.types.map(type => type.type.name))}
+        ${srcImg(pokemon.types.map(type => type))}
       </div>
       <div class="infoButtons"buttons>
         <button onclick="mainInfo(event, ${index})" class="button" id="button mainButton">Main</button>
