@@ -1,14 +1,12 @@
 function generatePokeCard(pokemonData) {
   return /*html*/ `
-    <div class="pokeCard" onclick="openInfoScreen(${pokemonData.id - 1})">
+    <div class="pokeCard" onclick="openInfoScreen(${pokemonData.id})">
         <div class="pokeCardHead">
             <span class="number"><b>#${pokemonData.id}</b></span>
             <span><b>${pokemonData.name}</b></span>
         </div>
         <div class="pokeCardBody bg_${pokemonData.types[0]}">
-            <img src="${
-              pokemonData.image
-            }" alt="">
+            <img src="${pokemonData.image}" alt="">
         </div>
         <div class="pokeCardFoot">
             <div class="svg-container ">
@@ -19,10 +17,9 @@ function generatePokeCard(pokemonData) {
         `;
 }
 
-function generateOpenInfoScreen(index) {
-  const pokemon = pokemonList[index];
+function generateOpenInfoScreen(pokemon) {
   return /*html*/ `
-    <div class="next" onclick="nextPokemon(event, ${index})">
+    <div class="next" onclick="nextPokemon(event, ${pokemon.id})">
       <img src="img/vorwärts.jpg" alt="vorwärts">
     </div>
     <div class="infos">
@@ -30,21 +27,21 @@ function generateOpenInfoScreen(index) {
         <span class="number"><b>#${pokemon.id}</b></span>
         <span><b>${pokemon.name}</b></span>
       </div>
-      <div class="infoImg bg_${pokemon.types[0]}"img>
+      <div class="infoImg bg_${pokemon.types[0]}">
         <img src="${pokemon.image}" alt="">
       </div>
-      <div class="infoTypes"type>
+      <div class="infoTypes">
         ${srcImg(pokemon.types.map(type => type))}
       </div>
-      <div class="infoButtons"buttons>
-        <button onclick="mainInfo(event, ${index})" class="button" id="button mainButton">Main</button>
-        <button onclick="statsInfo(event, ${index})" class="button" id="button">Stats</button>
-        <button onclick="evoInfo(event, ${index})" class="button" id="button">Evolution</button>
+      <div class="infoButtons">
+        <button onclick='mainInfo()' class="button">Main</button>
+        <button onclick='statsInfo()' class="button">Stats</button>
+        <button onclick='evoInfo()' class="button">Evolution</button>
       </div>
       <div class="infoText" id="info">
       </div>
     </div>
-    <div class="prev" onclick="prevPokemon(event, ${index})">
+    <div class="prev" onclick="prevPokemon(event, ${pokemon.id})">
       <img src="img/zurück.jpg" alt="zurück">
     </div>
         `;
@@ -73,7 +70,7 @@ function generateMainInfo(pokemon) {
         <span class="statName"><b>Fähigkeiten:</b></span> 
         <span class="statValue">${pokemon.abilities
           .map(ability => ability.ability.name)
-          .join(", ")}</span>
+          .join(', ')}</span>
       </div>
     </div>
     `;
